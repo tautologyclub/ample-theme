@@ -84,36 +84,44 @@
        (ample/fg "gray43"))
 
 
-
   ;; Set faces
   (custom-theme-set-faces
    `ample-light ;; you must use the same theme name here...
-   `(default ((t (:foreground ,ample/fg :background ,ample/bg))))
+   `(default ((t (:foreground ,"black" :background ,ample/bg :height 90))))
+   ;; `(default ((t (:foreground ,"black" :background "#d5e0a6" :height 90))))
    `(cursor  ((t (:foreground ,ample/bg :background ,ample/cursor))))
    `(fringe  ((t (:background ,ample/fringe))))
    `(link    ((t (:foreground ,ample/lighter-blue :underline t))))
    `(region  ((t (:background ,ample/region))))
 
    ;; standard font lock
-   `(font-lock-builtin-face		((t (:foreground ,ample/light-blue))))
-   `(font-lock-comment-face		((t (:foreground ,ample/gray))))
+   `(font-lock-builtin-face		((t (:foreground "#3d0631" :bold t))))
+   `(font-lock-comment-face		((t (:foreground "#005500" :italic t))))
    `(font-lock-comment-delimiter-face	((t (:foreground ,ample/dark-gray))))
-   `(font-lock-function-name-face	((t (:foreground ,ample/green))))
-   `(font-lock-keyword-face		((t (:foreground ,ample/blue))))
-   `(font-lock-string-face		((t (:foreground ,ample/tan))))
-   `(font-lock-preprocessor-face	((t (:foreground ,ample/orange))))
-   `(font-lock-type-face		((t (:foreground ,ample/red))))
+   `(font-lock-function-name-face	((t (:foreground "#004f0b" :bold t))))
+   `(font-lock-keyword-face		((t (:foreground "dark red" :bold t))))
+   `(font-lock-string-face		((t (:foreground "#880088" :italic t))))
+   `(font-lock-preprocessor-face	((t (:foreground "saddle brown"))))
+   `(font-lock-type-face		((t (:foreground "navy" :bold t))))
    `(font-lock-constant-face		((t (:foreground ,ample/purple))))
    `(font-lock-warning-face		((t (:foreground "red" :bold t))))
-   `(font-lock-variable-name-face	((t (:foreground ,ample/yellow))))
+   `(font-lock-variable-name-face	((t (:foreground "black" :italic t))))
    `(font-lock-doc-face			((t (:foreground ,ample/dark-tan))))
+
+   '(auto-dim-other-buffers-face ((t (:background "#a8a58a" :foreground "#222222"))))
+   '(hl-line-face ((t (:background "a8a58a"))))
 
    ;; mode line & powerline
    `(powerline-active1	((t (:foreground ,ample/darkest-gray))))
    `(mode-line-inactive ((t (:background ,ample/region-dark :foreground ,ample/bg))))
    `(mode-line		((t (:background ,ample/region :foreground ,ample/fg))))
 
-   `(linum ((t (:background nil :foreground ,ample/gray))))
+   '(feebleline-dir-face ((t (:foreground "saddle brown" :family "Noto Sans"))))
+   '(feebleline-bufname-face ((t (:foreground "dark red" :family "Noto Sans"))))
+   '(feebleline-previous-buffer-face ((t (:foreground "#7e7e7e" :family "Noto Sans"))))
+   '(feebleline-linum-face ((t (:family "Inconsolata" :height 90))))
+
+   `(linum ((t (:background nil :foreground "dark red"))))
 
    `(popup-tip-face ((t (:background ,ample/region-dark :foreground ,ample/dark-tan))))
 
@@ -781,7 +789,14 @@
 (defun ample-light-theme()
   "Apply the ample-light-theme."
   (interactive)
-  (load-theme 'ample-light t))
+  (load-theme 'ample-light t)
+  (setq minibuffer-setup-hook nil)
+  (add-hook 'minibuffer-setup-hook
+	    (lambda () (make-local-variable 'face-remapping-alist)
+	      (add-to-list
+	       'face-remapping-alist '(default (:background "#d5e0a6")))))
+  )
+
 
 
 (provide-theme 'ample-light)
