@@ -103,7 +103,7 @@
    `(font-lock-string-face		((t (:foreground "#880088" :italic t))))
    `(font-lock-preprocessor-face	((t (:foreground "saddle brown"))))
    `(font-lock-type-face		((t (:foreground "navy" :bold t))))
-   `(font-lock-constant-face		((t (:foreground ,ample/purple))))
+   `(font-lock-constant-face		((t (:foreground "#cc0088" :bold t))))
    `(font-lock-warning-face		((t (:foreground "red" :bold t))))
    `(font-lock-variable-name-face	((t (:foreground "black" :italic t))))
    `(font-lock-doc-face			((t (:foreground ,ample/dark-tan))))
@@ -796,6 +796,13 @@
 	      (add-to-list
 	       'face-remapping-alist '(default (:background "#d5e0a6")))))
   )
+
+;; (remove-hook 'c-mode-hook 'my-c-mode-hook)
+(defun theme-c-mode-hook ()
+  "Syntax highlight some crap."
+  (font-lock-add-keywords nil
+    '(("\\_<\\([A-Z0-9][a-zA-Z0-9_]*\\)\\_>\\\:" (0 '((:background "#ddddaa" :italic t)))))))
+(add-hook 'c-mode-hook #'theme-c-mode-hook)
 
 
 
